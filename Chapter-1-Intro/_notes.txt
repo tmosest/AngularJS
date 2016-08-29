@@ -1,0 +1,125 @@
+	AngularJS Modules:
+
+Modules are AngularJS's way of packaging relevant code under a single name. They are similar to packagges in Java. They have 2 parts:
+
+- A module can define its own controllers, services, factories, and directives. There are functions and code that can accessed throughout the module.
+
+- The module can also depend of other modules as dependencies.
+
+In addition to being a container for related Javascript code, it can also be used to Bootstrap an AngularJS Application.
+
+This is how we define a module named notesApp:
+
+	angular.module('notesApp', []);
+
+The first arguement to the module function in angular is the name of the module. The second arguement is an array of modules names that this module depends on.
+
+Here is we load the same module but make it depend on the notesApp.ui (our UI widgets) and thirdcompany.fusionCharts (a third-party library for charts):
+
+	angular.module('notesApp', ['notesApp.UI, thirdCompany.fusionCharts']);
+
+To load the module, even if defined in another file we would use:
+
+	angular.module('notesApp'); // Notice the lack of 2nd arguements.
+
+There are two common mistakes:
+
+1) Forgetting the array when trying to define a module and therefore trying to load one that doesn't exist.
+
+2) Trying to load a module from another file to modify, but the file that defines the module hasn't been loaded yet.
+
+//See example 1
+
+The ng-app directive takes an optimal arguement, which is the name of the module to load during bootstrapping.
+
+We can also wait for a specific event before bootstrapping. There are 2 things to note:
+
+1) We do not use ng-app tag in the HTML
+
+2) When we are ready we use the angular.bootstrap function with the elements AngularJS modules to load.
+
+//See example 2
+
+	Creating Our First Controller:
+
+Controllers are the workhorse of AngularJS. They are the JS functions that perform or trigger the majority of our UI orientated work. Their responsibilites include:
+
+- Fetching the right data from the Server for the current UI.
+
+- Deciding which parts of the data to show the user.
+
+- Presentation logic, such as how to display elements, which part of the UI to show, and how to style them.
+
+- User interactions, such as what happens when a user clicks on something or how a text input should be validated.
+
+Controllers are always lined to HTML in some way since they controll the View (UI). Functions that are not linked to the UI should be used in services or other AngularJS pieces.
+
+// See example 3
+
+When defining a controller the first arguement is the name of the controller. The 2nd arguement is an array of dependiencies as strings were the last arguement is actually the controller function. The function then houses all the controller specific logic.
+
+We have introduced a new directive call ng-controller which tells AngularJS to go start an instance of the controller with the name provided and attach it to the element.
+
+Putting the function inside an array is know as the Safe-Style Of Dependency Injection, or declaration. We could have omitted the array [] and just declared the function, but this could cause problems when we go to minify out code.
+
+Now lets look at a controller that actually loads in data from the controller.
+
+// See example 4
+
+Only variables that are defined on the Controller instance using the this (this.msg vs var msg) are accessable from the DOM, local and inner variables are not. This is how we funnel what data to give the UI. Therefore only attach data that the user should see to the this keyword.
+
+Let's look at changing the message with another function inside our controller.
+
+// See example 5
+
+It is good practice to not use the this keyword over and over again but instead to create a variable like self and have that referrence this (var self = this;). This is because the this keyword can target different things depending on where you declare it. That means that the this keyword inside and outside a function can be calling two completely different things. (For more info on this check out Kyle Simpson's You Don't Know JS: this & Object Prototypes. O'Reilly, 2014)
+
+	Working with and Displaying Arrays:
+
+Now let's take a look at a more complicated example where we are working with a more elaborate data set.
+
+// See example 6
+
+In this example we use the the ng-repeat directive to loop over an array of data. You might have noticed how we used the double curly brackets to show the label but ng-bind to show the status. Both would have worked the only difference is that bootstrapping AngularJS takes a second, and while it is loading the user might see flashing brackets while the DOM starts.
+
+If you really need to hide something while AngularJS loads you can use the ng-cloak directive to hide it while you wait for it to load. It uses the css prop display: none !important to hide the element until it is loaded. However if you wait to load Angular at the end of your html file it might not work properly.
+
+If we are using AngularJS 1.3 or greater than we can use a bind once property which tells the app to only display the initial data and not worry about having to update it. To do this we simply write ng-bind="::data" (aka the :: before the variable name). This is useful when displaying a large number of data points since the app no longer has to worry about updating them.
+
+// See example 7
+
+	More Directives:
+
+Let's see an example using ng-show and ng-class.
+
+// See example 8
+
+	Working with ng-repeat:
+
+We can also use ng-repeat over an Object. We can use it show all the keys and values of an object:
+
+// See example 9
+
+ng-repeat also have helper variables to make things easier. 
+
+- $first, $middle, and $last are Boolean values that tell us whether that particular variable is first, betwen first and last, or the last in the list.
+
+- $index gives us the index or position of the item in the array.
+
+- $odd and $even tells us if the item is has an odd or even index.
+
+// See example 10
+
+Note that the order of the elements doesn't always corespond to the order of them in the Object or Array but to the order that they were sorted in. AngularJS creates a new DOM object for each array or object, so to save work AngularJS will reuse objects that it already knows are in existance.
+
+Sometimes we want AngularJS to resuse the same DOM element even if the hash-value isn't the same. For example: if we have two objects from a database then we want them to be the same based on Id it doesn't matter if all the properties of the object are the same. We can use a track by property to do this as in the next example.
+
+// See example 11
+
+Note: $$variables are special AngularJS variables some don't use them in your applications.
+
+	Ng-repeat Accross Multiple HTML Elements:
+
+Sometimes we may need to repeat accross multiple html elements (think about alternating table rows where odd rows are one object and even ones are a child object). We are given ng-repeat-start and ng-repeat-end to tackle this problem.
+
+// See example 12
