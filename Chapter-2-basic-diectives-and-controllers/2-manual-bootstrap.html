@@ -1,0 +1,15 @@
+<!Doctype html>
+<html>
+	<body>
+		<h1>Hello {{1 + 2}}rd Time AngularJS</h1>
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script>
+			angular.module('notesApp', []); // Define the module
+
+			//Wait for document to be ready before we load the module
+			angular.element(document).ready(function (argument) {
+				angular.bootstrap(document, ['notesApp']);
+			})
+		</script>
+	</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+	<body ng-controller="MainCtrl as ctr">
+		{{ ctr.helloMsg }} Angular JS.
+		<br />
+		{{ ctr.byMsg }} Angular JS.				
+
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script type="text/javascript">
+			angular.module('notesApp', [])
+				.controller('MainCtrl', [function () {
+					this.helloMsg = "Hello";  // This will load
+					var byMsg = "Bye";		  // This will not
+				}]);
+		</script>
+	</body>
+</html>

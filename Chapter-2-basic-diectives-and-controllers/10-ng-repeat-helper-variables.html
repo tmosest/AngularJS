@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<title>Notes App</title>
+</head>
+<body ng-controller="MainCtr as ctr">
+	<div ng-repeat="note in ctr.notes">
+		<div>First Element: {{$first}}</div>
+		<div>Middle Element: {{$middle}}</div>
+		<div>Last Element: {{$last}}</div>
+		<div>Index of Element: {{$index}}</div>
+		<div>At Even Position: {{$even}}</div>
+		<div>At Odd Position: {{$odd}}</div>
+		<div class="label" ng-bind="::note.label"></div>
+		<div class="status" ng-bind="note.done"></div>
+		<br /><br />
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript">
+		angular.module("notesApp", []) // Don't forget the [] Common mistake!
+			.controller("MainCtr", [function() {
+				var self = this;
+				self.notes = [
+						{id: 1, label: "First Note", done: false},
+						{id: 2, label: "Second Note", done: false},
+						{id: 3, label: "Third Note", done: true},
+						{id: 4, label: "Fourth Note", done: false}
+				];
+			}]);
+	</script>
+</body>
+</html>

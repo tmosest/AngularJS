@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<title>Notes App</title>
+</head>
+<body ng-controller="MainCtrl as ctr">
+	<div ng-repeat="(author, note) in ctr.notes">
+		<span class="label">{{note.label}}</span>
+		<span class="author" ng-bind="author"></span>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript">
+		angular.module('notesApp', [])
+			.controller("MainCtrl", [function() {
+				var self = this;
+				self.notes = {
+					tyler: {
+						id: 1,
+						label: "First Note",
+						done: false
+					},
+					Tom: {
+						id: 3,
+						label: "Finished third"
+					},
+					moses: {
+						id: 2,
+						label: "Second Note",
+						done: false
+					}
+				};
+			}]);
+	</script>
+</body>
+</html>

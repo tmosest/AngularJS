@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+	<head>
+		<title>Notes App</title>
+	</head>
+	<body ng-controller="MainCtrl as ctr">
+		{{ ctr.msg }} Angular JS.
+		<button ng-click="ctr.changeMessage()">Change Message</button>				
+		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+		<script type="text/javascript">
+			angular.module('notesApp', [])
+				.controller('MainCtrl', [function () {
+					var self = this;
+					self.msg = "Hello";
+					var i = 0;
+					self.changeMessage = function() {
+						// Function to alternate message based on click.
+						if( i%2 == 0 ) {
+							self.msg = "Bye";
+						} else {
+							self.msg = "Hello";
+						}
+						i++;
+					};
+				}]);
+		</script>
+	</body>
+</html>
