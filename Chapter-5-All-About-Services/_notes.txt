@@ -1,0 +1,98 @@
+	AngularJS Services:
+
+AngularJS services are functions or objects that can hold behavior or state across our application. Each service is only implementated once so each part of our app gets access to it.
+
+AngularJS services can be implemented in three different ways: as a factory, service, or a provider. The fact that a serivce is one way to create a service api makes talking about them confusing at times.
+
+	Why Do We Need AngularJS Services?
+
+Controllers are statful and can be created and broken down serval times during navigating a single application. Services provide consistent data. The following shows the problem with states and controllers
+
+// ex 1
+
+	Services Verss Controllers:
+
+Table 5-1. Controllers versus services:
+
+	Controllers:                       Services:
+	Presentation Logic                 Bussiness Logic
+	Directly linked to a view          Independent of views
+	Drives UI                          Drives the app
+	One-off, specific                  Reusable
+	Responsive for decisions, UI	   Responsible for server calls, common validations, shared features
+
+	Dependcy Injection in AngularJS
+
+AngularJS is heavily dependent on dependcy injection. Which allows modules to be injected into other modules. This creates clean, indepently testable, bits of code that can be shared between different applications.
+
+Here are two cases:
+
+	// Without D.I.
+	funciton fetchDashboardData() {
+		var $http = new HttpService();
+		return $http.get('my/url');
+	}
+
+	// With D.I.
+	funciton fetchDashboardData($http) {
+		return $http.get('my/url');
+	}
+
+	Using Built-In AngularJS Services:
+
+Let's take a look at some built in services starting with the $log service:
+
+// ex 2
+
+	Order of injection:
+
+AngularJs injects dependccies in the order they are listed in the below example $w is $log and and $l is $window.
+
+	myModule.controller("MainCtrl", ["$log", "$window", function($w, $l){})]);
+
+	Common Angular Services:
+
+Here are some common services included in angular:
+	
+	$window:
+		A wrapper around the global window object. Help to avoid the global state. Instead of directly working with the window object we work with $window.
+
+	$location:
+		Allows us to get the url of the browser bar and interact with it. Any changes to $location get reflected in the browser immediatly.
+
+	absUrl:
+		A getter that gives us the abs URL in the browser ( called $location.absUrl() ).
+
+	url:
+		A getter and setter for the url. 
+
+	path:
+		Another getter and setter that sets the path of url. Automatically adds the forward slashes.
+
+	search:
+		Sets or gets the search query string for the current URL.
+
+	$http:
+		Allows us to make http post and get requests and will be the sole of chapter 6.
+
+	Creating our own AngularJS Service:
+
+The reasons for creating our own service are as follows:
+
+	It needs to be reusable, handles Application state, independent of the view, integrates with 3rd party services, Caching/factories.
+
+Let's now create our own.
+
+// ex 3
+
+	The Difference Between Facoty, Service, and Provider:
+
+Here is an overview of the 3 different service creation styles:
+
+	- use module.factory() to
+		+ Follow funcitonal style of programming
+		+ prefer to return functions and objects
+
+	- user service to use and object instead.
+
+// see item-service-using-service.js
