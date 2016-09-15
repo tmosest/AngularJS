@@ -1,0 +1,8 @@
+{
+	"name": "Karma-Jasmine",
+	"version": "0.0.0",
+	"description": "Introduction to Unit Testing with Karma-Jasmine in Google Chrome for AngularJS",
+	"dependencies": {
+	},
+	"author": "Tyler Moses"
+}
