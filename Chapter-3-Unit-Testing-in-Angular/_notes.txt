@@ -1,0 +1,130 @@
+	Unit Testing:
+
+Javascript is not strongly typed like a lot of other languages so it is our responsibility to make sure that everything is operating as we desire. Unit tests give us a way to write expectations about how our code should behave.	AngularJS and unit testing go hand-and-hand so after each chapter we are going to show how each concept can be tested individualy. Karma is the unit test runner for AngularJS and Jasmine is the test framework.
+
+	Unit Testing: What and Why?
+
+Backend users know that TDD (Test Driven Development) is important, but this seems to get ignored on the front-end. Here are 5 reasons why we shouldn't.
+
+1) Proof of correctness
+
+2) Lack of Compiler
+
+3) Catch Errors Early
+
+4) Prevent Regressions
+
+5) Specification
+
+TDD is an Agile Methodology that ensures flips the development cycle on the head. Forcing us to write tests before writting code. Those tests then drive development. The tenets of TDD are simple:
+
+- Code is only written when there is a failing test that requires the code to pass.
+- The bare minimum amount of code is written to ensure that the test passes.
+- Duplication is removed at every step.
+- When all the tests pass, the next failing test is added for the next required functionality.
+
+These rules ensure that:
+
+- Code develops organically. Every line has a purpose.
+- Code remains highly modular, cohesive, and reusable.
+- We provide a comprehensive array of tests to prevent future breakages and bugs.
+- The tests act as specification and thus documentation for future needs and changes.
+
+	Intro to Karma:
+
+Karma is the test runner that makes running tests possible. It uses NodeJS and SocketIO to facilitate tests in multiple browsers at insanely fast rates.
+
+Note: Test Runner are different from Testing Frameworks. Karma is a test runner its sole purpose is to find tests, open browsers, and run the tests. It does not care about language or framework, it simply runs them. Jasmine is the framework. It defines the syntax with which we write out tests, the APIs, and the way we do assesrtions. It is possible to not use Jasmine and to use something like mocha or Selenium to test instead.
+
+To get started with Karma:
+
+1) Install NodeJS
+
+2) Install Karma CLI:
+	
+	sudo npm install -g karma-cli
+
+2.5) Need package.json for NodeJS NPM:
+
+{
+	"name": "Karma-Jasmine",
+	"version": "0.0.0",
+	"description": "Introduction to Unit Testing with Karma-Jasmine in Google Chrome for AngularJS",
+	"dependencies": {
+	},
+	"author": "Tyler Moses"
+}
+
+3) Install Karma to the folder we are running our tests:
+
+	npm install karma
+
+4) Karma makes use of modules/plugins so lets get the ones for jasmins and google chrome:
+
+	npm install karma-jasmine karma-chrome-launcher
+
+	Karma Plugins:
+
+Karma Plugins are broadly split into four categories:
+
+1) Browser Launchers: Plugins used to launch browsers such as Google Chrome, Fire Fox, IE, Safari, ETC.
+
+2) Testing Frameworks: We can choose the testing frame work for this we are using Jasmine.
+
+3) Reporters: We can edit how Karma gives us results. Karma comes with a built in progress reporter, but we could decide that we need junit.xml and install a plugin for it.
+
+4) Integrations: Allows use to integrate in existing JS libraries such as Google's Closure, or RequireJS. Most of these have Karma plugins as well.
+
+	Explaining the Karma Config:
+
+To make Karma work we need to have a karma.conf.js file in the directory we run karma.
+
+// See karma.conf.js
+
+Some options include:
+
+- basePath: base path that all files need to be loaded from relative to karma.conf.js
+- frameworks: frameworks to use as an array, could use mocha, qunit, etc.
+- files: list of files/filePaths to load.
+- exclude: list of files to not use.
+- port: the port for Karma to run on.
+- logLevel: which level of log (console.log, console.info)
+- autoWatch: determines if karma should watch files and run tests autmatically.
+- browsers: which browsers to use.
+- singleRun: Boolean value that determins if Karma should shutdown after a single run or not.
+
+We can simply generate a config file by running:
+
+	karma init
+
+Now lets go throught the key components of Jasmine
+
+// See controllerSpec.js
+
+- describe: First line of the test that describes the set of unit tests. Each controller, service, etc would have one for it.
+- beforeEach: Contains a function that should be run before each unit test.
+- afterEach: Contains functions to be run after each unit test.
+- it: There are the unit tests. Each one should be self contained and independent of the other it statements.
+- expect: These are the assert statements that actually check for a value.
+
+	Jasmine Matchers:
+
+- toEqual: Most basic matcher, checks to make sure that a value equals what was expected.
+- toBe: Checks for the referrence and expects both items passed to match the same object referrence.
+- toBeTruthy: Checks to make sure the value is true. Nonnull objects, nonempty strings, nonzero numbers, and Boolean true.
+- toBeFalsy: Checks for a false value. Null Values, undefined variables, empty strings, zero, and false.
+- toBeDefined: Ensures that the referrence is defined.
+- toBeUndefined: Checks if undefined or not set.
+- toBeNull: Checks if null.
+- toContain: Checks if the array contains the value expected.
+- toMatch: Used for regex where the first arguement is a string that needs to be matched.
+
+	Running the Unit Test:
+
+If default karma config file use:
+
+	karma start
+
+else 
+	
+	karma start my.conf.js
