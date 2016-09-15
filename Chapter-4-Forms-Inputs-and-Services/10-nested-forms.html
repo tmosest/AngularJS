@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html ng-app>
+<head>
+	<title>Notes App</title>
+</head>
+<body>
+	<form novalidate name="myForm">
+		<div>
+			<input 
+				type="text" 
+				name="uname" 
+				class="username" 
+				ng-model="ctr.user.username" 
+				placeholder="Username" 
+				required />
+			<input 
+				type="password"
+				class="password"
+				ng-model="ctrl.user.password"
+				placeholder="Password" 
+				name="pwd" />
+		</div>
+		<ng-form name="profile">
+			<input 
+				type="text"
+				name="firstName"
+				ng-model="ctr.user.profile.firstName"
+				placeholder="First Name" 
+				required />
+			<input 
+				type="text"
+				name="middleName"
+				placeholder="Middle Name" 
+				ng-model="ctr.user.profile.middleName" />
+			<input 
+				type="text"
+				name="lastName"
+				placeholder="Last Name"
+				ng-model="ctr.user.profile.lastName" 
+				required />
+			<input type="date" 
+					name="dob"
+					placeholder="Date of Birth"
+					ng-model="ctr.user.profile.dob" /> 
+		</ng-form>
+		<span ng-show="myForm.profile.$invalid">Please fill in the profile information.</span>
+		<input type="submit" value="Submit" ng-disabled="myForm.$invalid" />
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+</body>
+</html>

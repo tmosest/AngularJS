@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<title>Notes App</title>
+</head>
+<body ng-controller="MainCtrl as ctr">
+	<form ng-submit="ctr.submit1()" name="simpleForm">
+		<input type="email" name="uname" ng-model="ctr.user1.username" ng-minlength="6" required />
+		<div ng-messages="simpleForm.uname.$error" >
+			<div ng-messages-include="error-messages"></div>
+		</div>
+		<input type="password" name="pwd" ng-model="ctr.user1.password" required/>
+		<div ng-messages="simpleForm.pwd.$error">
+			    <div ng-messages-include="error-messages"></div>
+		</div>
+		<input type="submit" value="Submit" ng-disabled="simpleForm.$invalid" />
+		<br />
+		<br />
+	</form>
+	<form ng-submit="ctr.submit2()" name="overriddenForm">
+		<input type="email" name="uname" ng-model="ctr.user2.username" ng-minlength="6" required />
+		<div ng-messages="overriddenForm.uname.$error">
+			<div ng-message="required">Please enter a username</div>
+			<div ng-messages-include="error-messages">
+			</div>
+		</div>
+		<input type="password" name="pwd" ng-model="ctr.user2.password" required />
+		<div ng-messages="overriddenForm.pwd.$error">
+			<div ng-message="required">Please enter a password</div>
+		</div>
+		<input type="submit" value="Submit" ng-disabled="overridenForm.$invalid" />
+	</form>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-messages.js"></script>
+	<script type="text/ng-template" id="error-messages">
+		<div ng-message="required">This feild is mandatory.</div>
+		<div ng-message="minlength">Minimum length condition not met.</div>
+		<div ng-message="email">Please enter a valid email.</div>
+	</script>
+	<script type="text/javascript">
+		angular.module('notesApp', ['ngMessages'])			
+			.controller("MainCtrl", [function() {
+				var self = this;
+				self.submit1 = function() {
+					console.log("User clicked submit1 with ", self.user1);
+				};
+				self.submit2 = function() {
+					console.log("User clicked submit2 with ", self.user2);
+				};
+			}]);
+	</script>
+</body>
+</html>

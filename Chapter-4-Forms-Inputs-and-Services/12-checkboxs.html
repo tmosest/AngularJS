@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<title>Notes App</title>
+</head>
+<body ng-controller="MainCtrl as ctr">
+	<div>
+		<select ng-model="ctr.selectedCountryId"
+				ng-options="c.id as c.label for c in ctr.countries" >
+			
+		</select>
+		Selected Country Id:
+		{{ctr.selectedCountryId}}
+	</div>
+	<div>
+		<select ng-model="ctr.selectedCountry"
+				ng-options="c.label for c in ctr.countries" >
+			
+		</select>
+		Selected Country:
+		{{ctr.selectedCountry}}
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript">
+		angular.module('notesApp', [])
+			.controller('MainCtrl', [function() {
+				this.countries = [
+					{label: 'USA', id: 1},
+					{label: 'India', id: 2},
+					{label: 'Other', id: 3}
+				];
+				this.selectedCountryId = 2;
+				this.selectedCountry = this.countries[1];
+			}]);
+	</script>
+</body>
+</html>
