@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html ng-app="notesApp">
+<head>
+	<title>Notes app</title>
+</head>
+<body ng-controller="MainCtrl as mainCtr">
+	<h1>Hello Controllers!</h1>
+	<button ng-click="mainCtr.open('first')">Open First</button>
+	<button ng-click="mainCtr.open('second')">Open Second</button>
+	<div ng-switch="mainCtr.tab">
+		<div ng-switch-when="first">
+			<div ng-controller="SubCtrl as ctr">
+				<h3>First Tab</h3>
+				<ul>
+					<li ng-repeat="item in ctr.list()"><span ng-bind="item.label"></span></li>
+				</ul>
+				<button ng-click="ctr.add()">Add More Items</button>
+			</div>
+		</div>
+		<div ng-switch-when="second">
+			<div ng-controller="SubCtrl as ctr">
+				<h3>Second Tab</h3>
+				<ul>
+					<li ng-repeat="item in ctr.list()"><span ng-bind="item.label"></span></li>
+				</ul>
+				<button ng-click="ctr.add()">Add More Items</button>
+			</div>
+		</div>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+	<script type="text/javascript" src="app-simple.js"></script>
+</body>
+</html>
