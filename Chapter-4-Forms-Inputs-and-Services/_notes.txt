@@ -1,0 +1,222 @@
+	Working with ng-model:
+
+We previously learned of n-bind which is perfect for one-way data binding. In order to get two-way data binding working is to use the ng-model directive.
+
+// ex 1
+
+We can now increase the complexity by making AngularJs deal with forms.
+
+// ex 2
+
+Note we were just able to manipulate the DOM without using a single id or jQuery selector, now that's poweful!!
+
+	Working with Forms:
+
+It is recommended that when you work with forms you structure your model and binding in such a way as to reduce the your own efforts.
+
+// ex 3
+
+Note how little code we wrote b/c of the ng-form directive and how we stored the information in ctr.user so we have a nice user obkect to store the username and password into.
+
+	Leverage Data Binding and Models:
+
+When using ng-model or deciding to, always consider the format you need the data in as in the following example.
+
+// ex 4
+
+See how we can save lines of code by simply making use of an object. In the second form we didn't need to store the variables into an object before sending them we simply sent the object.
+
+	Forn Validation and States:
+
+Now let's dive into all the ways that AngularJS can help us deal with forms.
+
+// ex 5 
+
+Table 4-1. Form states in AngularJS
+
+$invalid - AngularJS sets this state when any of the validations are invalid.
+$valid - sets this when all requirements are met.
+$pristine - all forms start with this state. This allows you to know the form has been touched.
+$dirty - states the user has made some change.
+$error - This feild houses all the individual errors for each field in the form.
+
+	Error Handling with Forms:
+
+AngularJs has some built in form handling:
+
+Table 4-2 Built in AngularJS validators
+
+require - forces the input to be required as shown.
+ng-require - allows us to conditionally mark when the field is required.
+ng-minlength - allows us to give the input a minimum lenght.
+ng-maxlength - sets the max length allowed.
+ng-pattern - allows us to set a regex to be checked against.
+type="email" - text input with built in email validation.
+type="number" - text input with built in number validation.
+type="date" - creates date picker if the browser supports it. expects yyyy-mm-dd.
+type="url" - validates to see if a url.
+
+	Displaying Error Messages:
+
+AngularJS gives us two ways to help show what went wrong:
+
+	1) models that reflect what is wrong with the form, which we can use to show error messages.
+
+	2) CSS classes that are automatically added and removed from each field.
+
+// ex 6
+ 
+	ngMessages:
+
+There is an optional angular js package that allows use to utilize common errors messages across all our pages and form fields.
+
+"//ajax.googleapis.com/ajax/libs/angularjs/X.Y.Z/angular-messages.js"
+
+The file provides the followig extra features:
+
+	- The ability to cleanly define the messages of each error, instead of relying on complex if and show conditions.
+	- The ability to sequence the error messages by priority.
+	- The ability to inherit and extend error messages across the app.
+
+To use the module we need to do a few things:
+
+	1) Include the file
+	2) add ngMessages module as a dependcy to the main app module.
+	3) use ng-messages and the ng-messages directives.
+	4) Optionally define templaes for your common errors.
+
+// ex 7
+
+	Styling forms and States:
+
+We know about $dirty, $valid, and so on. Wouldn't it be nice if we could change the way the form appeared based on these states. One solution would be to ng-class and change the class based on the state. However Angular has given us a much better approach.
+
+Table 4-3. Form state CSS clases:
+	States         CSS class applied
+	$invalid  -	ng-invalid
+	$valid    -	ng-valid
+	$pristine - ng-pristine
+	$dirty 	  - ng-dirty
+
+Also for each input field we get similar CSS classes to work with.
+
+Table 4-4. Input state CSS classes:
+	States        CSS class applied
+	$invalid    - ng-invalid
+	$valid      - ng-valid
+	$pristine   - ng-pristine
+	$dirty      - ng-dirty
+	required    - ng-valid-required or ng-invalid-required
+	min         - ng-valid-min or ng-invalid-min
+	max         - ng-valid-max or ng-invalid-max
+	minlength   - ng-valid-minlength or ng-invalid-minlength
+	maxlength   - ng-valid-maxlength or ng-invalid-maxlength
+	pattern     - ng-valid-pattern or ng-invalid-pattern
+	url			- ng-valid-url or ng-invalid-url
+	email       - ng-valid-email or ng-invalid-email
+	date        - ng-valid-date or ng-invalid-date
+	number      - ng-valid-number or ng-invalid-number
+
+// ex 8
+
+	ngModelOptions:
+
+The angularJS UI refreshes with each keystroke on ng-mdoel directives, which can be very CPU intensive. There are some things that we can do about this, by setting the following ng-model-options:
+
+1) updateOn:
+
+	This string dictates which events of the input should ng-model listen to. Default is keypress for text boxes, click for checkboxes and so on. You can specify your own like blur. You can also give multiple events seperated by spaces.
+
+2) debounce:
+
+	This can be an integer or object. It sets the period of time in miliseconds AngularJS should wait for the user to stop performing an action before updating the AngularJS model variable. As an object we can specify the interval for each updateOn: {"default": 500, "blue": 0}
+
+3) allowInvalid:
+	
+	false by default. allows you to override checking for invalid.
+
+4) getterSetter:
+	
+	This boolean value allows use to treat the ng-model as a getter/setter instead of a variable.
+
+// ex 9
+
+	Nested Forms with ng-form:
+
+Sometimes we want to deal with more complicated structures, and grouping of elements. Form tags are not made for this so AngularJs gave us an ng-form directive to help handle this:
+
+// ex 10
+
+	Other Form Controls:
+
+We have dealt with forms but only inputs lets look at some other elements:
+
+		Textareas:
+
+They work the same way as inputs with two way data binding.
+
+	<textarea ng-model="ctr.user.address" required></textarea>
+
+All the errors and options are the same.
+
+		Checkboxes:
+
+Checkboxes are easier because of the fact that they only have two values true-and-false.
+
+	<input type="checkbox" ng-model="ctr.user.agree" />
+
+However we can also assign custom values as follows:
+
+	<input type="checkbox" ng-model="ctr.user.agree" 
+		ng-true-value="'YES'" ng-false-value="'NO'" />
+
+The following will show off some of these new things:
+
+// ex 11
+
+		Radio Buttons:
+
+You can have multiple radio buttons that each assigns a different value to a model depending on which is selected.
+
+	<div ng-init="user = {gender: 'female'}"> 
+		<input type="radio"
+				name="gender"
+				ng-model="user.gender"
+				value="male" />
+		<input type="radio"
+				name="gender"
+				ng-model="user.gender"
+				value="female" /> 
+	</div> 	
+
+Another more complicated example where we use dynamic vales using ng-value:
+
+	<div ng-init="otherGender = 'other'"> 
+		<input type="radio"
+				name="gender"
+				ng-model="user.gender"
+				value="male" /> Male
+		<input type="radio"
+				name="gender"
+				ng-model="user.gender"
+				value="female" /> Female
+		<input type="radio"
+				name="gender"
+				ng-model="user.gender"
+				ng-value="otherGender" />
+		{{otherGender}}
+	</div> 		
+
+		Combo Boxes/Drop-Down:
+
+Here is an example of a drop-down in AngularJs:
+
+	<div ng-init="location = 'India'">
+		<select ng-model="location">
+			<option value="USA">USA</option>
+			<option value="India">India</option>
+			<option value="Other">None of the above</option>
+		</select>
+	</div>
+
+// ex 12
